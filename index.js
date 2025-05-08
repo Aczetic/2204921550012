@@ -1,15 +1,23 @@
-fetch("http://20.244.56.144/evaluation-service/users", {
-  method: "GET",
+const data = {
+  email: "contactmeananyasingh@gmail.com",
+  name: "Ananya Singh",
+  rollNo: "2204921550012",
+  accessCode: "baqhWc",
+  clientID: "6b55a736-a840-4ce6-8cc7-ba8911d4df20",
+  clientSecret: "XajgBhpEYjwEhbfb",
+};
+
+fetch("http://20.244.56.144/evaluation-service/auth", {
+  method: "POST",
+
   headers: {
-    accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzQ2Njg2NzMyLCJpYXQiOjE3NDY2ODY0MzIsImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6IjZiNTVhNzM2LWE4NDAtNGNlNi04Y2M3LWJhODkxMWQ0ZGYyMCIsInN1YiI6ImNvbnRhY3RtZWFuYW55YXNpbmdoQGdtYWlsLmNvbSJ9LCJlbWFpbCI6ImNvbnRhY3RtZWFuYW55YXNpbmdoQGdtYWlsLmNvbSIsIm5hbWUiOiJhbmFueWEgc2luZ2giLCJyb2xsTm8iOiIyMjA0OTIxNTUwMDEyIiwiYWNjZXNzQ29kZSI6ImJhcWhXYyIsImNsaWVudElEIjoiNmI1NWE3MzYtYTg0MC00Y2U2LThjYzctYmE4OTExZDRkZjIwIiwiY2xpZW50U2VjcmV0IjoiWGFqZ0JocEVZandFaGJmYiJ9.6KKP_3HfXuVd1l-SSBxmfTn7sNcqGUKVkAip0g_6gR4",
+    "Content-Type": "application/json",
   },
+
+  body: JSON.stringify(data),
 })
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(data); // Handle response data
-  })
-  .catch((error) => {
-    console.error("Fetch error:", error); // Handle any errors
-  });
+  .then((res) => res.json())
+
+  .then((data) => console.log(data))
+
+  .catch((e) => console.log(e));
