@@ -1,30 +1,49 @@
 import React, { useEffect, useState } from "react";
 
+const AUTHORIZATION = import.meta.env.VITE_AUTHORIZATION;
+
 const TopUsers = () => {
   const [users, setUsers] = useState({});
   const [posts, setPosts] = useState(null);
   const [comments, setComments] = useState(null);
-  useEffect(() => {
-    fetch("/evaluation-service/users", {
+  const [userIds, setUserIds] = useState([]);
+
+  const getPosts = (userid) => {
+    fetch(`/evaluation-service/users/${userid}/posts`, {
       method: "GET",
       headers: {
         accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzQ2Njg5MDY1LCJpYXQiOjE3NDY2ODg3NjUsImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6IjZiNTVhNzM2LWE4NDAtNGNlNi04Y2M3LWJhODkxMWQ0ZGYyMCIsInN1YiI6ImNvbnRhY3RtZWFuYW55YXNpbmdoQGdtYWlsLmNvbSJ9LCJlbWFpbCI6ImNvbnRhY3RtZWFuYW55YXNpbmdoQGdtYWlsLmNvbSIsIm5hbWUiOiJhbmFueWEgc2luZ2giLCJyb2xsTm8iOiIyMjA0OTIxNTUwMDEyIiwiYWNjZXNzQ29kZSI6ImJhcWhXYyIsImNsaWVudElEIjoiNmI1NWE3MzYtYTg0MC00Y2U2LThjYzctYmE4OTExZDRkZjIwIiwiY2xpZW50U2VjcmV0IjoiWGFqZ0JocEVZandFaGJmYiJ9.-sQp8ghCARPWazZjCz8NgvoNFTmArXoBonIs3F5C3tg",
+        Authorization: AUTHORIZATION,
       },
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setUsers(data.users);
       })
       .catch((error) => {
         console.error("Fetch error:", error); // Handle any errors
       });
- 
+  };
+
+  useEffect(() => {
+    let userData, postData, commentsData;
+    fetch("/evaluation-service/users", {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: AUTHORIZATION,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        userData = data.users;
+        postData = Object.keys(userData).map((key) => getPosts(key));
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error); // Handle any errors
+      });
   }, []);
-
-
 
   return (
     <>
