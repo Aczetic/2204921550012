@@ -21,7 +21,7 @@ const TopUsers = () => {
         console.log(data);
       })
       .catch((error) => {
-        console.error("Fetch error:", error); // Handle any errors
+        console.error("Fetch error:", error); 
       });
   };
 
@@ -41,7 +41,7 @@ const TopUsers = () => {
         postData = Object.keys(userData).map((key) => getPosts(key));
       })
       .catch((error) => {
-        console.error("Fetch error:", error); // Handle any errors
+        console.error("Fetch error:", error); 
       });
   }, []);
 
